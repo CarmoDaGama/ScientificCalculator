@@ -37,19 +37,21 @@ def calc(number1, number2, operator):
 def calculate_expression(expression):
     expressions = get_list_expression(expression)
     for operator in operators:
-        count = len(expressions)-1
+        count = len(expressions) - 1
+       # print(type(operator))
         while operator in expressions:
-            if operator == expressions[count]:
+            if operator == expressions[count] and expressions[count - 1].isnumeric() and expressions[count + 1].isnumeric():
                 number1 = float(expressions[count - 1])
                 number2 = float(expressions[count + 1])
                 result = calc(number1, number2, operator)
                 expressions.pop(count - 1)
                 expressions.pop(count)
-                expressions.pop(count + 1)
+                if len(expressions) > count + 1:
+                    expressions.pop(count + 1)
                 expressions.insert(0, result)
                 count -= 2
-
-
+            else:
+                count -= 1
 
 
 expression = str(input('Type it Expression: '))
